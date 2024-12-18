@@ -33,6 +33,14 @@ class MapFragment : Fragment() {
         map_LBL_title = v.findViewById(R.id.map_LBL_title)
     }
 
+    fun zoom(lat: Double, lon: Double) {
+        map_LBL_title.text = buildString {
+            append("📍\n")
+            append(lat)
+            append(",\n")
+            append(lon)
+        }
+    }
 
 
 }

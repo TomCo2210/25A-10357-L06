@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import dev.tomco.a25a_10357_l06.fragments.HighScoreFragment
 import dev.tomco.a25a_10357_l06.fragments.MapFragment
+import dev.tomco.a25a_10357_l06.interfaces.Callback_HighScoreItemClicked
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +43,12 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
         highScoreFragment = HighScoreFragment()
+        highScoreFragment.highScoreItemClicked = object : Callback_HighScoreItemClicked{
+            override fun highScoreItemClicked(lat: Double, lon: Double) {
+                mapFragment.zoom(lat,lon)
+            }
+        }
+
         supportFragmentManager
             .beginTransaction()
             .add(R.id.main_FRAME_list ,highScoreFragment )

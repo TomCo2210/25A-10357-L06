@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import dev.tomco.a25a_10357_l06.R
+import dev.tomco.a25a_10357_l06.interfaces.Callback_HighScoreItemClicked
 
 class HighScoreFragment : Fragment() {
 
@@ -15,6 +16,7 @@ class HighScoreFragment : Fragment() {
 
     private lateinit var highScore_BTN_send: MaterialButton
 
+    var highScoreItemClicked: Callback_HighScoreItemClicked? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +34,19 @@ class HighScoreFragment : Fragment() {
         return v
     }
 
+
     private fun initViews(v: View) {
-        highScore_BTN_send
+        highScore_BTN_send.setOnClickListener { v: View ->
+            var coordinates = highScore_ET_location.text?.split(",")
+            var lat: Double = coordinates?.get(0)?.toDouble() ?: 0.0
+            var lon: Double = coordinates?.get(1)?.toDouble() ?: 0.0
+
+            itemClicked(lat, lon)
+        }
+    }
+
+    private fun itemClicked(lat: Double, lon: Double) {
+        highScoreItemClicked?.highScoreItemClicked(lat,lon)
     }
 
     private fun findViews(v: View) {
